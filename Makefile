@@ -4,7 +4,10 @@ OPTFLAGS = -O3
 
 SRCDIR := src
 BUILDDIR := build
+OUTPUTSDIR := outputs
+GRAPHSDIR := graphs
 TARGET := bin/csswm
+
 
 SRCEXT := cpp
 SOURCES := $(shell find $(SRCDIR) -type f -name *.$(SRCEXT))
@@ -20,4 +23,4 @@ $(BUILDDIR)/%.o: $(SRCDIR)/%.$(SRCEXT)
 
 clean:
 	@echo " Cleaning..."; 
-	@echo " $(RM) -r $(BUILDDIR) $(TARGET)"; $(RM) -r $(BUILDDIR) $(TARGET)
+	@echo " $(RM) -r $(BUILDDIR) $(TARGET) $(OUTPUTSDIR)/* $(GRAPHSDIR)/*"; $(RM) -r $(BUILDDIR) $(TARGET) $(OUTPUTSDIR)/* $(GRAPHSDIR)/*
