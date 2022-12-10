@@ -33,18 +33,26 @@ public:
     };
 
     CSSWM();
-    
     patch csswm[6];
     double sqrtG[NX][NY], gamma[NX][NY], gLower[NX][NY][4], gUpper[NX][NY][4];
     double sqrtG_L[NX][NY], gamma_L[NX][NY], gLower_L[NX][NY][4], gUpper_L[NX][NY][4];
     double sqrtG_R[NX][NY], gamma_R[NX][NY], gLower_R[NX][NY][4], gUpper_R[NX][NY][4];
     double sqrtG_D[NX][NY], gamma_D[NX][NY], gLower_D[NX][NY][4], gUpper_D[NX][NY][4];
     double sqrtG_U[NX][NY], gamma_U[NX][NY], gLower_U[NX][NY][4], gUpper_U[NX][NY][4];
-    
+
+    // ***********************************************************************************
+    // In transform.cpp
+    double Cube2Sphere_U(CSSWM &, int, int, int);
+    double Cube2Sphere_V(CSSWM &, int, int, int);
+    double Sphere2Cube_U(CSSWM &, int, int, int);
+    double Sphere2Cube_V(CSSWM &, int, int, int);
+    void matrixMul(double firstMatrix[4], double secondMatrix[4], double mult[2][2]);
+    // ***********************************************************************************
+
 
 private:
-    static void Construct_gamma_sqrtG_GUpper(double **alpha2D, double **beta2D, double gamma[NX][NY], double sqrtG[NX][NY], double gUpper[NX][NY][4], double gLower[NX][NY][4]);
-    static void Construct_p0123_lonlat_xy_AIA(int p, double **alpha2D, double **beta2D, double gamma[NX][NY], double lon[NX][NY], double lat[NX][NY], double x[NX][NY], double y[NX][NY], double A[NX][NY][4], double IA[NX][NY][4]);
-    static void Construct_p4_lonlat_xy_AIA(int p, double **alpha2D, double **beta2D, double gamma[NX][NY], double lon[NX][NY], double lat[NX][NY], double x[NX][NY], double y[NX][NY], double A[NX][NY][4], double IA[NX][NY][4]);
-    static void Construct_p5_lonlat_xy_AIA(int p, double **alpha2D, double **beta2D, double gamma[NX][NY], double lon[NX][NY], double lat[NX][NY], double x[NX][NY], double y[NX][NY], double A[NX][NY][4], double IA[NX][NY][4]);
+    void Construct_gamma_sqrtG_GUpper(double **alpha2D, double **beta2D, double gamma[NX][NY], double sqrtG[NX][NY], double gUpper[NX][NY][4], double gLower[NX][NY][4]);
+    void Construct_p0123_lonlat_xy_AIA(int p, double **alpha2D, double **beta2D, double gamma[NX][NY], double lon[NX][NY], double lat[NX][NY], double x[NX][NY], double y[NX][NY], double A[NX][NY][4], double IA[NX][NY][4]);
+    void Construct_p4_lonlat_xy_AIA(int p, double **alpha2D, double **beta2D, double gamma[NX][NY], double lon[NX][NY], double lat[NX][NY], double x[NX][NY], double y[NX][NY], double A[NX][NY][4], double IA[NX][NY][4]);
+    void Construct_p5_lonlat_xy_AIA(int p, double **alpha2D, double **beta2D, double gamma[NX][NY], double lon[NX][NY], double lat[NX][NY], double x[NX][NY], double y[NX][NY], double A[NX][NY][4], double IA[NX][NY][4]);
 };
