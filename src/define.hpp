@@ -12,4 +12,7 @@
 #define NX ((int) 90/DX + 4)
 #define NY ((int) 90/DY + 4)
 
+#define ALPHA0 (0.)
+#define Jung
+
 #endif
