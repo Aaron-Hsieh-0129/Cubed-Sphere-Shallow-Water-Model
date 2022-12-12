@@ -3,8 +3,8 @@
 void Iteration::ph_pt(CSSWM &model) {
     for (int p = 0; p < 6; p++) {
         double psqrtGHU_px = 0, psqrtGHU_py = 0, dx_for_h = 0, dy_for_h = 0;
-        for (int i = 2; i < NX-2; i++) {
-            for (int j = 2; j < NY-2; j++) {
+        for (int i = 1; i < NX-1; i++) {
+            for (int j = 1; j < NY-1; j++) {
                 if (p == 0 || p == 1 || p == 5) {
                     dx_for_h = model.csswm[p].x_L[i+1][j] - model.csswm[p].x_L[i][j];
                     dy_for_h = model.csswm[p].y_D[i][j+1] - model.csswm[p].y_D[i][j];

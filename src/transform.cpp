@@ -99,8 +99,9 @@ double CSSWM::Sphere2Cube_V(CSSWM &model, int p, int i, int j) {
                mult[1][1] * model.csswm[p].v[i][j];
     }
 }
-/*
+
 double CSSWM::Cube2Cube_U(CSSWM &model, int p1, int p2, int i1, int i2, int j1, int j2) {
+    // p1 is other patch and p2 is the patch who needs other's information
     double mult[2][2], A[2][2], B[2][2];
     // init
     for (int i = 0; i < 2; i++) {
@@ -109,14 +110,12 @@ double CSSWM::Cube2Cube_U(CSSWM &model, int p1, int p2, int i1, int i2, int j1, 
         }
     }
 
-    if (p1 == 4) {
-        matrixMul(model.gLower_R[i1][j1], model.csswm[p1].IA_R[i1][j1], A);
-        matrixMul(model.csswm[p2].A_R[i2][j2], model.gUpper_R[i2][j2], B);
-    }
-    else {
-        matrixMul(model.gLower_L[i1][j1], model.csswm[p1].IA_L[i1][j1], A);
-        matrixMul(model.csswm[p2].A_L[i2][j2], model.gUpper_L[i2][j2], B);
-    }
+    if (p1 == 4) matrixMul(model.gLower_R[i1][j1], model.csswm[p1].IA_R[i1][j1], A);
+    else  matrixMul(model.gLower_L[i1][j1], model.csswm[p1].IA_L[i1][j1], A);
+
+    if (p2 == 4)  matrixMul(model.csswm[p2].A_R[i2][j2], model.gUpper_R[i2][j2], B);
+    else matrixMul(model.csswm[p2].A_L[i2][j2], model.gUpper_L[i2][j2], B);
+    
 
     // multiply A & B
     for (int i = 0; i < 2; i++) {
@@ -127,6 +126,136 @@ double CSSWM::Cube2Cube_U(CSSWM &model, int p1, int p2, int i1, int i2, int j1, 
 		}
 	}
 
-    // TODO: complete this function
+    if (p2 == 0 || p2 == 1 || p2 == 5) {
+        return mult[0][0] * model.csswm[p2].up[i2][j2] + 
+               mult[0][1] * 0.25 * (model.csswm[p2].vp[i2][j2+1] + model.csswm[p2].vp[i2][j2] + model.csswm[p2].vp[i2-1][j2+1] + model.csswm[p2].vp[i2-1][j2]);
+    }
+    else if (p2 == 2 || p2 == 3) {
+        return mult[0][0] * model.csswm[p2].up[i2][j2] + 
+               mult[0][1] * 0.25 * (model.csswm[p2].vp[i2][j2] + model.csswm[p2].vp[i2][j2-1] + model.csswm[p2].vp[i2-1][j2] + model.csswm[p2].vp[i2-1][j2-1]);
+    }
+    else {
+        return mult[0][0] * model.csswm[p2].up[i2][j2] + 
+               mult[0][1] * 0.25 * (model.csswm[p2].vp[i2+1][j2+1] + model.csswm[p2].vp[i2+1][j2] + model.csswm[p2].vp[i2][j2+1] + model.csswm[p2].vp[i2][j2]);
+    }
 }
-*/
+
+double CSSWM::Cube2Cube_V(CSSWM &model, int p1, int p2, int i1, int i2, int j1, int j2) {
+    // p1 is other patch and p2 is the patch who needs other's information
+    double mult[2][2], A[2][2], B[2][2];
+    // init
+    for (int i = 0; i < 2; i++) {
+        for (int j = 0; j < 2; j++) {
+            mult[i][j] = A[i][j] = B[i][j] = 0.;
+        }
+    }
+
+    if (p1 == 2 || p1 == 3) matrixMul(model.gLower_U[i1][j1], model.csswm[p1].IA_U[i1][j1], A);
+    else  matrixMul(model.gLower_D[i1][j1], model.csswm[p1].IA_D[i1][j1], A);
+
+    if (p2 == 2 || p2 == 3)  matrixMul(model.csswm[p2].A_U[i2][j2], model.gUpper_U[i2][j2], B);
+    else matrixMul(model.csswm[p2].A_D[i2][j2], model.gUpper_D[i2][j2], B);
+    
+
+    // multiply A & B
+    for (int i = 0; i < 2; i++) {
+		for (int j = 0; j < 2; j++) {
+			for (int k = 0; k < 2; k++) {
+				mult[i][j] += A[i][k] * B[k][j];
+			}
+		}
+	}
+
+    if (p2 == 0 || p2 == 1 || p2 == 5) {
+        return mult[1][0] * 0.25 * (model.csswm[p2].up[i2+1][j2] + model.csswm[p2].up[i2][j2] + model.csswm[p2].up[i2+1][j2-1] + model.csswm[p2].up[i2][j2-1]) + 
+               mult[1][1] * model.csswm[p2].vp[i2][j2];
+    }
+    else if (p2 == 2 || p2 == 3) {
+        return mult[1][0] * 0.25 * (model.csswm[p2].up[i2+1][j2+1] + model.csswm[p2].up[i2][j2+1] + model.csswm[p2].up[i2+1][j2] + model.csswm[p2].up[i2][j2]) + 
+               mult[1][1] * model.csswm[p2].vp[i2][j2];
+    }
+    else {
+        return mult[1][0] * 0.25 * (model.csswm[p2].up[i2][j2] + model.csswm[p2].up[i2][j2-1] + model.csswm[p2].up[i2-1][j2] + model.csswm[p2].up[i2-1][j2-1]) + 
+               mult[1][1] * model.csswm[p2].vp[i2][j2];
+    }
+}
+
+double CSSWM::Cube2Cube_BV2AU(CSSWM &model, int p1, int p2, int i1, int i2, int j1, int j2) {
+    // p1 is other patch and p2 is the patch who needs other's information
+    double mult[2][2], A[2][2], B[2][2];
+    // init
+    for (int i = 0; i < 2; i++) {
+        for (int j = 0; j < 2; j++) {
+            mult[i][j] = A[i][j] = B[i][j] = 0.;
+        }
+    }
+
+    if (p1 == 4) matrixMul(model.gLower_R[i1][j1], model.csswm[p1].IA_R[i1][j1], A);
+    else  matrixMul(model.gLower_L[i1][j1], model.csswm[p1].IA_L[i1][j1], A);
+
+    if (p2 == 2 || p2 == 3)  matrixMul(model.csswm[p2].A_U[i2][j2], model.gUpper_U[i2][j2], B);
+    else matrixMul(model.csswm[p2].A_D[i2][j2], model.gUpper_D[i2][j2], B);
+    
+
+    // multiply A & B
+    for (int i = 0; i < 2; i++) {
+		for (int j = 0; j < 2; j++) {
+			for (int k = 0; k < 2; k++) {
+				mult[i][j] += A[i][k] * B[k][j];
+			}
+		}
+	}
+
+    if (p2 == 0 || p2 == 1 || p2 == 5) {
+        return mult[0][0] * 0.25 * (model.csswm[p2].up[i2+1][j2]+model.csswm[p2].up[i2][j2]+model.csswm[p2].up[i2+1][j2-1]+model.csswm[p2].up[i2][j2-1]) + 
+               mult[0][1] * model.csswm[p2].vp[i2][j2];
+    }
+    else if (p2 == 2 || p2 == 3) {
+        return mult[0][0] * 0.25 * (model.csswm[p2].up[i2+1][j2+1]+model.csswm[p2].up[i2+1][j2]+model.csswm[p2].up[i2][j2+1]+model.csswm[p2].up[i2][j2]) + 
+               mult[0][1] * model.csswm[p2].vp[i2][j2];
+    }
+    else {
+        return mult[0][0] * 0.25 * (model.csswm[p2].up[i2][j2]+model.csswm[p2].up[i2][j2-1]+model.csswm[p2].up[i2-1][j2]+model.csswm[p2].up[i2-1][j2-1]) + 
+               mult[0][1] * model.csswm[p2].vp[i2][j2];
+    }
+}
+
+double CSSWM::Cube2Cube_BU2AV(CSSWM &model, int p1, int p2, int i1, int i2, int j1, int j2) {
+    // p1 is other patch and p2 is the patch who needs other's information
+    double mult[2][2], A[2][2], B[2][2];
+    // init
+    for (int i = 0; i < 2; i++) {
+        for (int j = 0; j < 2; j++) {
+            mult[i][j] = A[i][j] = B[i][j] = 0.;
+        }
+    }
+
+    if (p1 == 2 || p1 == 3) matrixMul(model.gLower_U[i1][j1], model.csswm[p1].IA_U[i1][j1], A);
+    else  matrixMul(model.gLower_D[i1][j1], model.csswm[p1].IA_D[i1][j1], A);
+
+    if (p2 == 4)  matrixMul(model.csswm[p2].A_R[i2][j2], model.gUpper_R[i2][j2], B);
+    else matrixMul(model.csswm[p2].A_L[i2][j2], model.gUpper_L[i2][j2], B);
+    
+
+    // multiply A & B
+    for (int i = 0; i < 2; i++) {
+		for (int j = 0; j < 2; j++) {
+			for (int k = 0; k < 2; k++) {
+				mult[i][j] += A[i][k] * B[k][j];
+			}
+		}
+	}
+
+    if (p2 == 0 || p2 == 1 || p2 == 5) {
+        return mult[1][0] * model.csswm[p2].up[i2][j2] + 
+               mult[1][1] * 0.25 * (model.csswm[p2].vp[i2][j2+1]+model.csswm[p2].vp[i2][j2]+model.csswm[p2].vp[i2-1][j2+1]+model.csswm[p2].vp[i2-1][j2]);
+    }
+    else if (p2 == 2 || p2 == 3) {
+        return mult[1][0] * model.csswm[p2].up[i2][j2] + 
+               mult[1][1] * 0.25 * (model.csswm[p2].vp[i2][j2]+model.csswm[p2].vp[i2][j2-1]+model.csswm[p2].vp[i2-1][j2]+model.csswm[p2].vp[i2-1][j2-1]);
+    }
+    else {
+        return mult[1][0] * model.csswm[p2].up[i2][j2] + 
+               mult[1][1] * 0.25 * (model.csswm[p2].vp[i2+1][j2+1]+model.csswm[p2].vp[i2+1][j2]+model.csswm[p2].vp[i2][j2+1]+model.csswm[p2].vp[i2][j2]);
+    }
+}
