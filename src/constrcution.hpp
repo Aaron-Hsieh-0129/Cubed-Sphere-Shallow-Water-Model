@@ -51,6 +51,12 @@ public:
     void matrixMul(double firstMatrix[4], double secondMatrix[4], double mult[2][2]);
     // ***********************************************************************************
 
+    // ***********************************************************************************
+    // In bp_h.cpp
+    static void BP_h(CSSWM &);
+
+    // ***********************************************************************************
+
 
 private:
     void Construct_gamma_sqrtG_GUpper(double **alpha2D, double **beta2D, double gamma[NX][NY], double sqrtG[NX][NY], double gUpper[NX][NY][4], double gLower[NX][NY][4]);
