@@ -99,3 +99,34 @@ double CSSWM::Sphere2Cube_V(CSSWM &model, int p, int i, int j) {
                mult[1][1] * model.csswm[p].v[i][j];
     }
 }
+/*
+double CSSWM::Cube2Cube_U(CSSWM &model, int p1, int p2, int i1, int i2, int j1, int j2) {
+    double mult[2][2], A[2][2], B[2][2];
+    // init
+    for (int i = 0; i < 2; i++) {
+        for (int j = 0; j < 2; j++) {
+            mult[i][j] = A[i][j] = B[i][j] = 0.;
+        }
+    }
+
+    if (p1 == 4) {
+        matrixMul(model.gLower_R[i1][j1], model.csswm[p1].IA_R[i1][j1], A);
+        matrixMul(model.csswm[p2].A_R[i2][j2], model.gUpper_R[i2][j2], B);
+    }
+    else {
+        matrixMul(model.gLower_L[i1][j1], model.csswm[p1].IA_L[i1][j1], A);
+        matrixMul(model.csswm[p2].A_L[i2][j2], model.gUpper_L[i2][j2], B);
+    }
+
+    // multiply A & B
+    for (int i = 0; i < 2; i++) {
+		for (int j = 0; j < 2; j++) {
+			for (int k = 0; k < 2; k++) {
+				mult[i][j] += A[i][k] * B[k][j];
+			}
+		}
+	}
+
+    // TODO: complete this function
+}
+*/

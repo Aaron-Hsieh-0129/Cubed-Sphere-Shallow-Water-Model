@@ -46,6 +46,8 @@ public:
     double Cube2Sphere_V(CSSWM &, int, int, int);
     double Sphere2Cube_U(CSSWM &, int, int, int);
     double Sphere2Cube_V(CSSWM &, int, int, int);
+    double Cube2Cube_U(CSSWM &, int, int, int, int, int, int);
+    double Cube2Cube_V(CSSWM &, int, int, int, int, int, int);
     void matrixMul(double firstMatrix[4], double secondMatrix[4], double mult[2][2]);
     // ***********************************************************************************
 
