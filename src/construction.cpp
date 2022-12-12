@@ -63,6 +63,8 @@ void CSSWM::Construct_p0123_lonlat_xy_AIA(int p, double **alpha2D, double **beta
             IA[i][j][1] = 0;
             IA[i][j][2] = gamma[i][j] * cos(alpha2D[i][j]) * cos(beta2D[i][j]) * (tan(alpha2D[i][j]) * sin(beta2D[i][j]));
             IA[i][j][3] = gamma[i][j] * cos(alpha2D[i][j]) * cos(beta2D[i][j]) * (gamma[i][j] * cos(beta2D[i][j]));
+
+            if (lon[i][j] < 0) lon[i][j] += 2 * M_PI;
         }
     }
 }
@@ -88,6 +90,8 @@ void CSSWM::Construct_p4_lonlat_xy_AIA(int p, double **alpha2D, double **beta2D,
             IA[i][j][1] = gamma[i][j] * cos(alpha2D[i][j]) * cos(beta2D[i][j]) * (-gamma[i][j] * cos(alpha2D[i][j]) / cos(beta2D[i][j]) * sin(lon[i][j]));
             IA[i][j][2] = gamma[i][j] * cos(alpha2D[i][j]) * cos(beta2D[i][j]) * (cos(beta2D[i][j]) / cos(alpha2D[i][j]) * sin(lon[i][j]));
             IA[i][j][3] = gamma[i][j] * cos(alpha2D[i][j]) * cos(beta2D[i][j]) * (gamma[i][j] * cos(beta2D[i][j]) / cos(alpha2D[i][j]) * cos(lon[i][j]));
+
+            if (lon[i][j] < 0) lon[i][j] += 2 * M_PI;
         }
     }
 }
@@ -113,6 +117,8 @@ void CSSWM::Construct_p5_lonlat_xy_AIA(int p, double **alpha2D, double **beta2D,
             IA[i][j][1] = gamma[i][j] * cos(alpha2D[i][j]) * cos(beta2D[i][j]) * (gamma[i][j] * cos(alpha2D[i][j]) / cos(beta2D[i][j]) * sin(lon[i][j]));
             IA[i][j][2] = gamma[i][j] * cos(alpha2D[i][j]) * cos(beta2D[i][j]) * (-cos(beta2D[i][j]) / cos(alpha2D[i][j]) * sin(lon[i][j]));
             IA[i][j][3] = gamma[i][j] * cos(alpha2D[i][j]) * cos(beta2D[i][j]) * (gamma[i][j] * cos(beta2D[i][j]) / cos(alpha2D[i][j]) * cos(lon[i][j]));
+
+            if (lon[i][j] < 0) lon[i][j] += 2 * M_PI;
         }
     }
 }

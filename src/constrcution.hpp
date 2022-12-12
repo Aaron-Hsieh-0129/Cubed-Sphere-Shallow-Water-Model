@@ -55,7 +55,8 @@ public:
 
     // ***********************************************************************************
     // In bp_h.cpp
-    static void BP_h(CSSWM &);
+    void BP_h(CSSWM &);
+    double interpolate(double A1, double A2, double V1, double V2, double B);
 
     // ***********************************************************************************
 
