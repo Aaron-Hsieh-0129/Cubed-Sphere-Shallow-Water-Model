@@ -59,7 +59,6 @@ public:
     void BP_h2(CSSWM &);
     void BP_test(CSSWM &);
     double interpolate(double A1, double A2, double V1, double V2, double B);
-
     // ***********************************************************************************
 
 
