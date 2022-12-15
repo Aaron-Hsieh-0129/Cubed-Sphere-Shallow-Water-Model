@@ -46,10 +46,10 @@ public:
     double Cube2Sphere_V(CSSWM &, int, int, int);
     double Sphere2Cube_U(CSSWM &, int, int, int);
     double Sphere2Cube_V(CSSWM &, int, int, int);
-    double Cube2Cube_U(CSSWM &model, int p1, int p2, int i1, int i2, int j1, int j2);
-    double Cube2Cube_V(CSSWM &model, int p1, int p2, int i1, int i2, int j1, int j2);
-    double Cube2Cube_BV2AU(CSSWM &model, int p1, int p2, int i1, int i2, int j1, int j2);
-    double Cube2Cube_BU2AV(CSSWM &model, int p1, int p2, int i1, int i2, int j1, int j2);
+    double Cube2Cube_U(CSSWM &model, int p1, int p2, int i1, int j1, int i2, int j2);
+    double Cube2Cube_V(CSSWM &model, int p1, int p2, int i1, int j1, int i2, int j2);
+    double Cube2Cube_BV2AU(CSSWM &model, int p1, int p2, int i1, int j1, int i2, int j2);
+    double Cube2Cube_BU2AV(CSSWM &model, int p1, int p2, int i1, int j1, int i2, int j2);
     void matrixMul(double firstMatrix[4], double secondMatrix[4], double mult[2][2]);
     // ***********************************************************************************
 

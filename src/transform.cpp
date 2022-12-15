@@ -100,7 +100,7 @@ double CSSWM::Sphere2Cube_V(CSSWM &model, int p, int i, int j) {
     }
 }
 
-double CSSWM::Cube2Cube_U(CSSWM &model, int p1, int p2, int i1, int i2, int j1, int j2) {
+double CSSWM::Cube2Cube_U(CSSWM &model, int p1, int p2, int i1, int j1, int i2, int j2) {
     // p1 is other patch and p2 is the patch who needs other's information
     double mult[2][2], A[2][2], B[2][2];
     // init
@@ -140,7 +140,7 @@ double CSSWM::Cube2Cube_U(CSSWM &model, int p1, int p2, int i1, int i2, int j1, 
     }
 }
 
-double CSSWM::Cube2Cube_V(CSSWM &model, int p1, int p2, int i1, int i2, int j1, int j2) {
+double CSSWM::Cube2Cube_V(CSSWM &model, int p1, int p2, int i1, int j1, int i2, int j2) {
     // p1 is other patch and p2 is the patch who needs other's information
     double mult[2][2], A[2][2], B[2][2];
     // init
@@ -180,7 +180,7 @@ double CSSWM::Cube2Cube_V(CSSWM &model, int p1, int p2, int i1, int i2, int j1, 
     }
 }
 
-double CSSWM::Cube2Cube_BV2AU(CSSWM &model, int p1, int p2, int i1, int i2, int j1, int j2) {
+double CSSWM::Cube2Cube_BV2AU(CSSWM &model, int p1, int p2, int i1, int j1, int i2, int j2) {
     // p1 is other patch and p2 is the patch who needs other's information
     double mult[2][2], A[2][2], B[2][2];
     // init
@@ -220,7 +220,7 @@ double CSSWM::Cube2Cube_BV2AU(CSSWM &model, int p1, int p2, int i1, int i2, int 
     }
 }
 
-double CSSWM::Cube2Cube_BU2AV(CSSWM &model, int p1, int p2, int i1, int i2, int j1, int j2) {
+double CSSWM::Cube2Cube_BU2AV(CSSWM &model, int p1, int p2, int i1, int j1, int i2, int j2) {
     // p1 is other patch and p2 is the patch who needs other's information
     double mult[2][2], A[2][2], B[2][2];
     // init
