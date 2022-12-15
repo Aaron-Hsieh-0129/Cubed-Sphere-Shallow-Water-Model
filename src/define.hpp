@@ -18,6 +18,9 @@
 #define OUTPUTINTERVAL (100)
 
 #define ALPHA0 (0.)
-#define Jung
+#define HorizontalAdvection
+// #define Jung
+#define SteadyGeostrophy
+
 
 #endif

@@ -314,10 +314,12 @@ void Iteration::leap_frog(CSSWM &model) {
 
         // calculate
         ph_pt(model);
-        pu_pt(model);
-        pv_pt(model);
+        // pu_pt(model);
+        // pv_pt(model);
 
         // TODO: boundary process
+        model.BP_h(model);
+        model.BP_h2(model);
 
         // Time filter
         #ifdef TIMEFILTER
