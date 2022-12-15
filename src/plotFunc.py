@@ -11,10 +11,10 @@ cmap = cm.viridis
 def plotOnCubeWindMul(t):
     left, right, split = 0, 1000, 21
 
-    x, y = np.loadtxt("../outputs/grids/x.txt").reshape(6, NX, NY)[:, 2:-2, 2:-2], np.loadtxt("../outputs/grids/y.txt").reshape(6, NX, NY)[:, 2:-2, 2:-2]
-    val = np.loadtxt(f"../outputs/h/h_{t*LEAP}.txt").reshape(6, NX, NY)[:, 2:-2, 2:-2]
-    u = np.loadtxt(f"../outputs/u/u_{t*LEAP}.txt").reshape(6, NX, NY)[:, 2:-2, 2:-2]
-    v = np.loadtxt(f"../outputs/v/v_{t*LEAP}.txt").reshape(6, NX, NY)[:, 2:-2, 2:-2]
+    x, y = np.loadtxt("../outputs/grids/x.txt").reshape(6, NX, NY), np.loadtxt("../outputs/grids/y.txt").reshape(6, NX, NY)
+    val = np.loadtxt(f"../outputs/h/h_{t*LEAP}.txt").reshape(6, NX, NY)
+    u = np.loadtxt(f"../outputs/u/u_{t*LEAP}.txt").reshape(6, NX, NY)
+    v = np.loadtxt(f"../outputs/v/v_{t*LEAP}.txt").reshape(6, NX, NY)
 
     fig = plt.figure(figsize=(18,10))
     ax5 = fig.add_subplot(3,4,2)
@@ -53,13 +53,13 @@ def plotOnCubeWindMul(t):
     return
 
 def plotOnSphereWindMul(t):
-    x, y = np.loadtxt("../outputs/grids/lon.txt").reshape(6, NX, NY)[:, 2:-2, 2:-2], np.loadtxt("../outputs/grids/lat.txt").reshape(6, NX, NY)[:, 2:-2, 2:-2]
-    val = np.loadtxt(f"../outputs/h/h_{t*LEAP}.txt").reshape(6, NX, NY)[:, 2:-2, 2:-2]
+    x, y = np.loadtxt("../outputs/grids/lon.txt").reshape(6, NX, NY), np.loadtxt("../outputs/grids/lat.txt").reshape(6, NX, NY)
+    val = np.loadtxt(f"../outputs/h/h_{t*LEAP}.txt").reshape(6, NX, NY)
     x = x * 180 / np.pi
     y = y * 180 / np.pi
 
-    u = np.loadtxt(f"../outputs/u/u_{t*LEAP}.txt").reshape(6, NX, NY)[:, 2:-2, 2:-2]
-    v = np.loadtxt(f"../outputs/v/v_{t*LEAP}.txt").reshape(6, NX, NY)[:, 2:-2, 2:-2]
+    u = np.loadtxt(f"../outputs/u/u_{t*LEAP}.txt").reshape(6, NX, NY)
+    v = np.loadtxt(f"../outputs/v/v_{t*LEAP}.txt").reshape(6, NX, NY)
 
     left, right, split = 0, 1000, 21
     plt.figure(figsize=(18,8))
@@ -92,8 +92,8 @@ def plotOnSphereWindMul(t):
     return
 
 def plotOnSphereMul(t):
-    x, y = np.loadtxt("../outputs/grids/x.txt").reshape(6, NX, NY)[:, 2:-2, 2:-2], np.loadtxt("../outputs/grids/y.txt").reshape(6, NX, NY)[:, 2:-2, 2:-2]
-    val = np.loadtxt(f"../outputs/h/h_{t*LEAP}.txt").reshape(6, NX, NY)[:, 2:-2, 2:-2]
+    x, y = np.loadtxt("../outputs/grids/x.txt").reshape(6, NX, NY), np.loadtxt("../outputs/grids/y.txt").reshape(6, NX, NY)
+    val = np.loadtxt(f"../outputs/h/h_{t*LEAP}.txt").reshape(6, NX, NY)
 
     left, right, split = -1200, 1200, 13
     plt.figure(figsize=(18,8))
@@ -116,8 +116,8 @@ def plotOnSphereMul(t):
     return
 
 def plotOnCubeMul(t):
-    x, y = np.loadtxt("../outputs/grids/x.txt").reshape(6, NX, NY)[:, 2:-2, 2:-2], np.loadtxt("../outputs/grids/y.txt").reshape(6, NX, NY)[:, 2:-2, 2:-2]
-    val = np.loadtxt(f"../outputs/h/h_{t*LEAP}.txt").reshape(6, NX, NY)[:, 2:-2, 2:-2]
+    x, y = np.loadtxt("../outputs/grids/x.txt").reshape(6, NX, NY), np.loadtxt("../outputs/grids/y.txt").reshape(6, NX, NY)
+    val = np.loadtxt(f"../outputs/h/h_{t*LEAP}.txt").reshape(6, NX, NY)
 
     fig = plt.figure(figsize=(18,10))
     ax5 = fig.add_subplot(3,4,2)

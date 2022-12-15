@@ -22,5 +22,10 @@
 // #define Jung
 #define SteadyGeostrophy
 
+#define DIFFUSION
+#define TIMEFILTER
+#define KX (100000.)
+#define KY (100000.)
+#define TIMETS (0.06)
 
 #endif
