@@ -86,7 +86,7 @@ void Outputs::output_u(int n, CSSWM &model) {
         for (int j = 0; j < NY; j++) {
             for (int i = 0; i < NX; i++) {
                 foutu << model.csswm[p].u[i][j] << " ";
-                foutu_lon_lat << model.Cube2Sphere_U(model, p, i, j) << " ";
+                // foutu_lon_lat << model.Cube2Sphere_U(model, p, i, j) << " ";
             }
         }
     }
@@ -107,7 +107,7 @@ void Outputs::output_v(int n, CSSWM &model) {
         for (int j = 0; j < NY; j++) {
             for (int i = 0; i < NX; i++) {
                 foutv << model.csswm[p].v[i][j] << " ";
-                foutv_lon_lat << model.Cube2Sphere_V(model, p, i, j) << " ";
+                // foutv_lon_lat << model.Cube2Sphere_V(model, p, i, j) << " ";
             }
         }
     }

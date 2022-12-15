@@ -158,8 +158,8 @@ void CSSWM::BP_test(CSSWM &model) {
     // Construct Interpolation 2D array filled with index (Note that all interpolation relation between every boundary is same)
     while (idx < NX && ipIdx < NX - 1) {
         B = model.csswm[0].lat[NX-1][idx];
-        A1 = model.csswm[1].lat[3][ipIdx], A2 = model.csswm[1].lat[3][ipIdx+1];
-        V1 = model.csswm[1].hp[3][ipIdx], V2 = model.csswm[1].hp[3][ipIdx+1];
+        A1 = model.csswm[1].lat[1][ipIdx], A2 = model.csswm[1].lat[1][ipIdx+1];
+        V1 = model.csswm[1].hp[1][ipIdx], V2 = model.csswm[1].hp[1][ipIdx+1];
 
         if (A1 < B && B < A2) {
             checkIP[idx][0] = ipIdx;
@@ -185,12 +185,12 @@ void CSSWM::BP_test(CSSWM &model) {
     // (p1, p2, i1, j1, i2, j2, reversed, LonLat: 1/0) 
     // Left, Right, Up, Down
     int match[24][8] = {
-        {0, 3, 0, -1, NX-4, -1, 0, 0},  {0, 1, NX-1, -1, 3, -1, 0, 0},    {0, 4, -1, NY-1, -1, 3, 0, 1},     {0, 5, -1, 0, -1, NY-4, 0, 1},
-        {1, 0, 0, -1, NX-4, -1, 0, 0},  {1, 2, NX-1, -1, 3, -1, 0, 0},    {1, 4, -1, NY-1, NX-4, -1, 0, 1},  {1, 5, -1, 0, NX-4, -1, 1, 1},
-        {2, 1, 0, -1, NX-4, -1, 0, 0},  {2, 3, NX-1, -1, 3, -1, 0, 0},    {2, 4, -1, NY-1, -1, NY-4, 1, 1},  {2, 5, -1, 0, -1, 3, 1, 1},
-        {3, 2, 0, -1, NX-4, -1, 0, 0},  {3, 0, NX-1, -1, 3, -1, 0, 0},    {3, 4, -1, NY-1, 3, -1, 1, 1},     {3, 5, -1, 0, 3, -1, 0, 1},
-        {4, 3, 0, -1, -1, NY-4, 1, 1},  {4, 1, NX-1, -1, -1, NY-4, 0, 1}, {4, 2, -1, NY-1, -1, NY-4, 1, 1},  {4, 0, -1, 0, -1, NY-4, 0, 1},
-        {5, 3, 0, -1, -1, 3, 0, 1},     {5, 1, NX-1, -1, -1, 3, 1, 1},    {5, 0, -1, NY-1, -1, 3, 0, 1},     {5, 2, -1, 0, -1, 3, 1, 1}
+        {0, 3, 0, -1, NX-2, -1, 0, 0},  {0, 1, NX-1, -1, 1, -1, 0, 0},    {0, 4, -1, NY-1, -1, 1, 0, 1},     {0, 5, -1, 0, -1, NY-2, 0, 1},
+        {1, 0, 0, -1, NX-2, -1, 0, 0},  {1, 2, NX-1, -1, 1, -1, 0, 0},    {1, 4, -1, NY-1, NX-2, -1, 0, 1},  {1, 5, -1, 0, NX-2, -1, 1, 1},
+        {2, 1, 0, -1, NX-2, -1, 0, 0},  {2, 3, NX-1, -1, 1, -1, 0, 0},    {2, 4, -1, NY-1, -1, NY-2, 1, 1},  {2, 5, -1, 0, -1, 1, 1, 1},
+        {3, 2, 0, -1, NX-2, -1, 0, 0},  {3, 0, NX-1, -1, 1, -1, 0, 0},    {3, 4, -1, NY-1, 1, -1, 1, 1},     {3, 5, -1, 0, 1, -1, 0, 1},
+        {4, 3, 0, -1, -1, NY-2, 1, 1},  {4, 1, NX-1, -1, -1, NY-2, 0, 1}, {4, 2, -1, NY-1, -1, NY-2, 1, 1},  {4, 0, -1, 0, -1, NY-2, 0, 1},
+        {5, 3, 0, -1, -1, 1, 0, 1},     {5, 1, NX-1, -1, -1, 1, 1, 1},    {5, 0, -1, NY-1, -1, 1, 0, 1},     {5, 2, -1, 0, -1, 1, 1, 1}
     };
 
     int p1, p2, i1, j1, i2, j2, reversed, lonlat;
@@ -204,10 +204,9 @@ void CSSWM::BP_test(CSSWM &model) {
 
                 B = model.csswm[p1].lat[I1][J1];
                 A1 = model.csswm[p2].lat[I2_1][J2_1], A2 = model.csswm[p2].lat[I2_2][J2_2];
-                V1 = model.csswm[p2].lat[I2_1][J2_1], V2 = model.csswm[p2].lat[I2_2][J2_2];
-                
-                std::cout << "A1: " << A1 << ", ip: " << interpolate(A1, A2, V1, V2, B) << ", A2: " << A2  << std::endl;
-                std::cout << "==================================" << std::endl;
+                V1 = model.csswm[p2].hp[I2_1][J2_1], V2 = model.csswm[p2].hp[I2_2][J2_2];
+
+                model.csswm[p1].hp[I1][J1] = interpolate(A1, A2, V1, V2, B);
             }
             else {
                 int I1 = i1 == -1 ? idx : i1, J1 = j1 == -1 ? idx : j1;
@@ -216,12 +215,11 @@ void CSSWM::BP_test(CSSWM &model) {
 
                 B = model.csswm[p1].lon[I1][J1];
                 A1 = model.csswm[p2].lon[I2_1][J2_1], A2 = model.csswm[p2].lon[I2_2][J2_2];
-                V1 = model.csswm[p2].lon[I2_1][J2_1], V2 = model.csswm[p2].lon[I2_2][J2_2];
+                V1 = model.csswm[p2].hp[I2_1][J2_1], V2 = model.csswm[p2].hp[I2_2][J2_2];
 
                 if (A1 > A2 && (p1 == 0 || p2 == 0))  A2 += 2 * M_PI;
-                
-                std::cout << "A1: " << A1 << ", ip: " << interpolate(A1, A2, V1, V2, B) << ", A2: " << A2  << std::endl;
-                std::cout << "==================================" << std::endl;
+
+                model.csswm[p1].hp[I1][J1] = interpolate(A1, A2, V1, V2, B);
             }
         }
     }

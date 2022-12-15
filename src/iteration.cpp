@@ -46,10 +46,10 @@ void Iteration::ph_pt(CSSWM &model) {
 
                     psqrtGHU_py = (1. / (model.sqrtG[i][j] * dy_for_h)) * 
                                   ((model.sqrtG_U[i][j] * 0.5*(model.csswm[p].h[i][j+1]+model.csswm[p].h[i][j]) * 
-                                    (model.gUpper_U[i][j][3] * model.csswm[p].v[i][j+1] + 
-                                    model.gUpper_U[i][j+1][2] * 0.25*(model.csswm[p].u[i+1][j+1]+model.csswm[p].u[i+1][j]+model.csswm[p].u[i][j+1]+model.csswm[p].u[i][j]))) - 
-                                   (model.sqrtG_U[i][j] * 0.5*(model.csswm[p].h[i][j]+model.csswm[p].h[i][j-1]) * 
-                                    (model.gUpper_U[i][j-1][3] * model.csswm[p].v[i][j] + 
+                                    (model.gUpper_U[i][j][3] * model.csswm[p].v[i][j] + 
+                                    model.gUpper_U[i][j][2] * 0.25*(model.csswm[p].u[i+1][j+1]+model.csswm[p].u[i+1][j]+model.csswm[p].u[i][j+1]+model.csswm[p].u[i][j]))) - 
+                                   (model.sqrtG_U[i][j-1] * 0.5*(model.csswm[p].h[i][j]+model.csswm[p].h[i][j-1]) * 
+                                    (model.gUpper_U[i][j-1][3] * model.csswm[p].v[i][j-1] + 
                                      model.gUpper_U[i][j-1][2] * 0.25*(model.csswm[p].u[i+1][j]+model.csswm[p].u[i+1][j-1]+model.csswm[p].u[i][j]+model.csswm[p].u[i][j-1]))));
 
                     model.csswm[p].hp[i][j] = model.csswm[p].hm[i][j] + D2T * (-psqrtGHU_px - psqrtGHU_py);
@@ -308,7 +308,6 @@ void Iteration::leap_frog(CSSWM &model) {
             Outputs::output_u(n, model);
             Outputs::output_v(n, model);
         }
-
         n++;
         timenow = n * DT;
 
@@ -318,8 +317,10 @@ void Iteration::leap_frog(CSSWM &model) {
         // pv_pt(model);
 
         // TODO: boundary process
-        model.BP_h(model);
-        model.BP_h2(model);
+        model.BP_test(model);
+        // model.BP_h(model);
+        // model.BP_h2(model);
+
 
         // Time filter
         #ifdef TIMEFILTER

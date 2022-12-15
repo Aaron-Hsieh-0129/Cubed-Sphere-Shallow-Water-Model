@@ -129,14 +129,15 @@ CSSWM::CSSWM() {
     double *alpha_L = new double[NX], *alpha_R = new double[NX], *beta_U = new double[NY], *beta_D = new double[NY];
 
     for (int i = 0; i < NX; i++) {
-        alpha[i] = -M_PI/4. + (M_PI/2.) / (NX-4) * (i-1.5);
-        alpha_L[i] = -M_PI/4. + (M_PI/2.) / (NX-4) * (i-2);
-        alpha_R[i] = -M_PI/4. + (M_PI/2.) / (NX-4) * (i-1);
+        alpha[i] = -M_PI/4. + (M_PI/2.) / (NX-2) * (i-0.5);
+        alpha_L[i] = -M_PI/4. + (M_PI/2.) / (NX-2) * (i-1);
+        alpha_R[i] = -M_PI/4. + (M_PI/2.) / (NX-2) * i;
     }
+    std::cout << std::endl;
     for (int j = 0; j < NY; j++) {
-        beta[j] = -M_PI/4. + (M_PI/2.) / (NX-4) * (j-1.5);
-        beta_D[j] = -M_PI/4. + (M_PI/2.) / (NX-4) * (j-2);
-        beta_U[j] = -M_PI/4. + (M_PI/2.) / (NX-4) * (j-1);
+        beta[j] = -M_PI/4. + (M_PI/2.) / (NX-2) * (j-0.5);
+        beta_D[j] = -M_PI/4. + (M_PI/2.) / (NX-2) * (j-1);
+        beta_U[j] = -M_PI/4. + (M_PI/2.) / (NX-2) * j;
     }
 
     // Init new 2D array
